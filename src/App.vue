@@ -121,4 +121,7 @@ let list = reactive([
 .menu {
   margin-top: 20px;
 }
+.trigger{
+    margin-left: 16px;
+}
 </style>
