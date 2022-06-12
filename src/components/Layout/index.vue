@@ -5,7 +5,7 @@ import {
     MenuFoldOutlined,
 } from "@ant-design/icons-vue";
 import { reactive, ref } from "vue";
-let collapsed = ref<Boolean>(false);
+let collapsed = ref<boolean>(false);
 let toggleCollapsed = () => {
     collapsed.value = !collapsed.value;
 };
