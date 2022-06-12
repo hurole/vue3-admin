@@ -5,18 +5,18 @@ import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import { resolve } from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@": resolve(__dirname, "src"),
+    resolve: {
+        alias: {
+            "@": resolve(__dirname, "src"),
+        },
     },
-  },
-  plugins: [
-    vue(),
-    Components({
-      /* options */
-      dts: true,
-      types: [],
-      resolvers: [AntDesignVueResolver()],
-    }),
-  ],
+    plugins: [
+        vue(),
+        Components({
+            /* options */
+            dts: true,
+            types: [],
+            resolvers: [AntDesignVueResolver()],
+        }),
+    ],
 });
