@@ -110,6 +110,7 @@ let list = reactive([
                     minHeight: '280px',
                 }"
             >
+                <router-view></router-view>
             </a-layout-content>
         </a-layout>
     </a-layout>

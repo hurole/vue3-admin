@@ -1,6 +1,8 @@
 import { createApp } from "vue";
+import { message } from "ant-design-vue";
 import App from "./App.vue";
 import router from "./router";
+import "ant-design-vue/es/message/style/css";
 
 // createApp方法返回应用实例
 const app = createApp(App);
@@ -8,8 +10,9 @@ const app = createApp(App);
 app.use(router).mount("#app");
 // config配置项 errorHandler捕获错误
 app.config.errorHandler = (err) => {
-  console.log("捕获错误", err);
+    console.log("捕获错误", err);
 };
 app.config.globalProperties = {
-  projectName: "vue3—admin",
+    projectName: "vue3—admin",
+    $message: message,
 };

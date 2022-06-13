@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeMount } from "vue";
-console.log("执行setup");
 const name = ref("控制面板");
 onMounted(() => {
     console.log("onMounted--生命周期");

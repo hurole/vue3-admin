@@ -1,17 +1,40 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, getCurrentInstance } from 'vue';
+import axios from 'axios';
 interface LoginInfo {
     username: string;
     password: string;
 }
+const instace: any = getCurrentInstance();
 const loginInfo: LoginInfo = reactive({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
 });
+async function handleLogin() {
+    if (!(loginInfo.username && loginInfo.password)) {
+        instace.proxy.$message.info('请填写用户名及密码');
+        return;
+    }
+    try {
+        let res = await axios.post(
+            'http://localhost:3001/api/auth/login',
+            {
+                username: loginInfo.username,
+                password: loginInfo.password,
+            },
+            { withCredentials: true }
+        );
+        if (res?.data) {
+            console.log('res.data', res.data);
+        }
+    } catch (error: any) {
+        instace.proxy.$message.error(error?.message || '网络异常');
+    }
+}
 </script>
 <template>
     <div class="container">
-        <a-row class="content" :gutter="12">
+        <a-row class="content">
             <a-col :span="12" class="left"></a-col>
             <a-col :span="12">
                 <a-row>
@@ -54,7 +77,9 @@ const loginInfo: LoginInfo = reactive({
                                 class="pwd"
                             />
                         </a-form-item>
-                        <a-button type="primary">登录</a-button>
+                        <a-button type="primary" @click="handleLogin"
+                            >登录</a-button
+                        >
                     </a-form>
                 </a-row>
             </a-col>
@@ -72,12 +97,11 @@ const loginInfo: LoginInfo = reactive({
     height: 80%;
     margin: 100px auto;
     width: 80%;
-    max-width: 1920px;
     box-shadow: 20px 10px 50px #fff1eb;
     border-radius: 10px;
 }
 .left {
-    background: url("../../assets/home_bg.svg") no-repeat center;
+    background: url('../../assets/home_bg.svg') no-repeat center;
     background-size: 80% 80%;
     background-color: #accbee;
 }
