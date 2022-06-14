@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { reactive, getCurrentInstance } from 'vue';
+import { reactive, getCurrentInstance, ComponentInternalInstance } from 'vue';
 import axios from 'axios';
 interface LoginInfo {
     username: string;
     password: string;
 }
-const instace: any = getCurrentInstance();
+const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const loginInfo: LoginInfo = reactive({
     username: '',
     password: '',
 });
 async function handleLogin() {
     if (!(loginInfo.username && loginInfo.password)) {
-        instace.proxy.$message.info('请填写用户名及密码');
+        proxy!.$message.info('请填写用户名及密码');
         return;
     }
     try {
@@ -28,7 +28,7 @@ async function handleLogin() {
             console.log('res.data', res.data);
         }
     } catch (error: any) {
-        instace.proxy.$message.error(error?.message || '网络异常');
+        proxy!.$message.error(error?.message || '网络异常');
     }
 }
 </script>
