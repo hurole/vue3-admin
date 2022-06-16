@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, getCurrentInstance, ComponentInternalInstance } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 interface LoginInfo {
     username: string;
@@ -10,6 +11,7 @@ const loginInfo: LoginInfo = reactive({
     username: '',
     password: '',
 });
+const router = useRouter();
 async function handleLogin() {
     if (!(loginInfo.username && loginInfo.password)) {
         proxy!.$message.info('请填写用户名及密码');
@@ -26,6 +28,9 @@ async function handleLogin() {
         );
         if (res?.data) {
             console.log('res.data', res.data);
+            router.push({
+                name: 'dashborad',
+            });
         }
     } catch (error: any) {
         proxy!.$message.error(error?.message || '网络异常');
@@ -36,8 +41,8 @@ async function handleLogin() {
     <div class="container">
         <a-row class="content">
             <a-col :span="12" class="left"></a-col>
-            <a-col :span="12">
-                <a-row>
+            <a-col :span="12" class="login-view">
+                <a-row align="middle" justify="center" class="login-view-content">
                     <a-form
                         :model="loginInfo"
                         name="login"
@@ -118,5 +123,11 @@ async function handleLogin() {
 .user:focus {
     border-width: 2px;
     border-color: #ace0f9;
+}
+.login-view {
+    height: 100%;
+}
+.login-view-content{
+    height: 100%;
 }
 </style>
