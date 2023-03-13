@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons-vue";
 import { reactive, ref } from "vue";
 let collapsed = ref<boolean>(false);
+console.log('vue3-admin')
 let toggleCollapsed = () => {
     collapsed.value = !collapsed.value;
 };
