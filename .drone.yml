@@ -5,7 +5,7 @@ name: vue3-admin
 steps:
     - name: build
       pull: if-not-exists
-      image: node:16
+      image: node
       commands:
           - npm i -g pnpm
           - pnpm install
@@ -18,5 +18,5 @@ trigger:
             - main
     event:
         include:
-            - push
+            - cron
             - custom
