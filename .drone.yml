@@ -1,0 +1,21 @@
+kind: pipeline
+type: docker
+name: vue3-admin
+
+steps:
+    - name: build
+      pull: if-not-exists
+      image: node:16
+      commands:
+          - npm i -g pnpm
+          - pnpm install
+          - pnpm build
+          - echo 成功生成dist
+          - ls dist
+trigger:
+    branch:
+        include:
+            - main
+    event:
+        include:
+            - push
