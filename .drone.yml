@@ -11,19 +11,17 @@ steps:
           - pnpm install
           - pnpm build
           - echo 打包成功...
-          - ls dist
     - name: docker
       image: plugins/docker
-      repo: hurole/vue3-admin
-      dry_run: true
+      pull: if-not-exists
       settings:
+          repo: hurole/vue3-admin
           username:
               from_secret: docker_user
           password:
               from_secret: docker_pwd
-      tags:
-          - latest
-      debug: true
+          auto_tag: true
+          dry_run: true
 trigger:
     branch:
         include:
