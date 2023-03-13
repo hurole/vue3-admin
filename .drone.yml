@@ -4,14 +4,24 @@ name: vue3-admin
 
 steps:
     - name: build
-      pull: if-not-exists
       image: node
+      pull: if-not-exists
       commands:
           - npm i -g pnpm
           - pnpm install
           - pnpm build
-          - echo 成功生成dist
+          - echo 打包成功...
           - ls dist
+    - name: docker
+      image: plugins/docker
+      repo: hurole/vue3-admin
+      dry_run: true
+      settings:
+          username:
+              from_secret: docker_user
+          password:
+              from_secret: docker_pwd
+      auto_tag: true
 trigger:
     branch:
         include:

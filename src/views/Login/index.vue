@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { reactive, getCurrentInstance, ComponentInternalInstance } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { message } from 'ant-design-vue';
 interface LoginInfo {
     username: string;
     password: string;
 }
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const loginInfo: LoginInfo = reactive({
     username: '',
     password: '',
@@ -14,7 +14,7 @@ const loginInfo: LoginInfo = reactive({
 const router = useRouter();
 async function handleLogin() {
     if (!(loginInfo.username && loginInfo.password)) {
-        proxy!.$message.info('请填写用户名及密码');
+        message.info('请填写用户名及密码');
         return;
     }
     try {
@@ -33,7 +33,7 @@ async function handleLogin() {
             });
         }
     } catch (error: any) {
-        proxy!.$message.error(error?.message || '网络异常');
+        message.error(error?.message || '网络异常');
     }
 }
 </script>
@@ -42,7 +42,11 @@ async function handleLogin() {
         <a-row class="content">
             <a-col :span="12" class="left"></a-col>
             <a-col :span="12" class="login-view">
-                <a-row align="middle" justify="center" class="login-view-content">
+                <a-row
+                    align="middle"
+                    justify="center"
+                    class="login-view-content"
+                >
                     <a-form
                         :model="loginInfo"
                         name="login"
@@ -61,14 +65,14 @@ async function handleLogin() {
                             ]"
                         >
                             <a-input
-                                v-model:value="loginInfo.username"
+                                v-model="loginInfo.username"
                                 placeholder="用户名"
                                 class="user"
                             />
                         </a-form-item>
                         <a-form-item
                             label="用户名"
-                            name="username"
+                            name="password"
                             :rules="[
                                 {
                                     required: true,
@@ -77,7 +81,7 @@ async function handleLogin() {
                             ]"
                         >
                             <a-input-password
-                                v-model:value="loginInfo.password"
+                                v-model="loginInfo.password"
                                 placeholder="密码"
                                 class="pwd"
                             />
@@ -110,8 +114,6 @@ async function handleLogin() {
     background-size: 80% 80%;
     background-color: #accbee;
 }
-.right {
-}
 .user {
     height: 40px;
     border-radius: 10px;
@@ -127,7 +129,7 @@ async function handleLogin() {
 .login-view {
     height: 100%;
 }
-.login-view-content{
+.login-view-content {
     height: 100%;
 }
 </style>
