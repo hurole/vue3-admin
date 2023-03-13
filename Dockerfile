@@ -1,3 +1,4 @@
-FROM nginx:stable
+FROM nginx:1.22
 COPY ./dist /usr/share/nginx/html
-EXPOSE 80
+COPY ./nginx.conf /etc/nginx/nginx.conf
+EXPOSE 7080
