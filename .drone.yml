@@ -22,6 +22,7 @@ steps:
           password:
               from_secret: docker_pwd
       auto_tag: true
+      debug: true
 trigger:
     branch:
         include:
