@@ -4,7 +4,7 @@ name: vue3-admin
 
 steps:
     - name: build
-      image: node
+      image: node:16
       pull: if-not-exists
       commands:
           - npm i -g pnpm
