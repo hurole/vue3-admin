@@ -2,6 +2,17 @@ kind: pipeline
 type: docker
 name: default
 steps:
+    - name: restore-cache #恢复缓存
+      image: drillster/drone-volume-cache
+      pull: if-not-exists
+      volumes:
+          - name: cache
+            path: /cache
+      settings:
+          restore: true
+          mount:
+              - ./node_modules
+              - .pnpm-store/v3
     - name: build
       image: node:16
       pull: if-not-exists
@@ -10,6 +21,17 @@ steps:
           - pnpm install
           - pnpm build
           - echo 打包成功...
+    - name: rebuild-cache #重建缓存
+      image: drillster/drone-volume-cache
+      pull: if-not-exists
+      volumes:
+          - name: cache
+            path: /cache
+      settings:
+          rebuild: true
+          mount:
+              - ./node_modules
+              - ./.pnpm-store/v3
     - name: docker
       image: plugins/docker
       pull: if-not-exists
@@ -32,6 +54,9 @@ volumes:
     - name: dockersock
       host:
           path: /var/run/docker.sock
+    - name: cache
+      host:
+          path: /tmp/cache
 trigger:
     branch:
         include:
