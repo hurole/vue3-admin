@@ -26,7 +26,7 @@ steps:
           - name: dockersock
             path: /var/run/docker.sock
       commands:
-          - docker run -d --name vue --restart -p 7080:7080 always hurole/vue3
+          - docker run -d --name vue --restart -P 8080:8080 always hurole/vue3
           - docker ps -a
 volumes:
     - name: dockersock
