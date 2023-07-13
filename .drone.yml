@@ -50,7 +50,7 @@ steps:
       commands:
           - docker stop vue
           - docker rm vue
-          - docker run -d --name vue --restart always -p 9080:80 hurole/vue3-admin:latest
+          - docker run -d --name vue --restart always -p 80:80 hurole/vue3-admin:latest
           - docker ps -a
 volumes:
     - name: dockersock
