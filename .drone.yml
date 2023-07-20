@@ -18,7 +18,7 @@ steps:
       pull: if-not-exists
       commands:
           - npm i -g pnpm
-          - pnpm install
+          - pnpm install --no-frozen-lockfile
           - pnpm build
           - echo 打包成功...
     - name: rebuild-cache #重建缓存
