@@ -42,7 +42,8 @@ steps:
         command_timeout: 5m
         overwrite: true
         target: /usr/share/nginx/html
-        source: dist/*
+        source: dist
+        strip_components: 1
     # - name: docker
     #   image: plugins/docker
     #   pull: if-not-exists
