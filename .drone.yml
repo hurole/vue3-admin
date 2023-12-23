@@ -32,21 +32,27 @@ steps:
           mount:
               - ./node_modules
               - ./.pnpm-store/v3
-    - name: docker
-      image: plugins/docker
-      pull: if-not-exists
+    - name: deploy
+      image: appleboy/drone-scp
       settings:
-          repo: hurole/vue3-admin
-          username:
-              from_secret: docker_user
-          password:
-              from_secret: docker_pwd
-          auto_tag: true
----
-kind: pipeline
-type: docker
-name: deployment
-steps:
+        host: 192.168.1.30
+        username: root
+        password: qq123456
+        port: 22
+        command_timeout: 5m
+        overwrite: true
+        target: /usr/share/nginx/html
+        source: dist
+    # - name: docker
+    #   image: plugins/docker
+    #   pull: if-not-exists
+    #   settings:
+    #       repo: hurole/vue3-admin
+    #       username:
+    #           from_secret: docker_user
+    #       password:
+    #           from_secret: docker_pwd
+    #       auto_tag: true
     # - name: deploy
     #   image: docker:dind
     #   volumes:
@@ -68,17 +74,17 @@ steps:
     #     script:
     #         - cd /root/vue3-admin
     #         - git pull
-    - name: deploy
-      image: appleboy/drone-scp
-      settings:
-        host: 192.168.1.30
-        username: root
-        password: 123456
-        port: 22
-        command_timeout: 5m
-        overwrite: true
-        target: /usr/share/nginx/html
-        source: dist
+    # - name: deploy
+    #   image: appleboy/drone-scp
+    #   settings:
+    #     host: 192.168.1.30
+    #     username: root
+    #     password: 123456
+    #     port: 22
+    #     command_timeout: 5m
+    #     overwrite: true
+    #     target: /usr/share/nginx/html
+    #     source: dist
 volumes:
     - name: dockersock
       host:
