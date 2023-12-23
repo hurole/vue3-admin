@@ -17,7 +17,7 @@ steps:
       image: node:16
       pull: if-not-exists
       commands:
-          - npm i -g pnpm
+          - corepack enable
           - pnpm install --no-frozen-lockfile
           - pnpm build
           - echo 打包成功...
@@ -42,7 +42,7 @@ steps:
         command_timeout: 5m
         overwrite: true
         target: /usr/share/nginx/html
-        source: dist
+        source: dist/*
     # - name: docker
     #   image: plugins/docker
     #   pull: if-not-exists
